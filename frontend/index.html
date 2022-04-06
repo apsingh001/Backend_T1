@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="script.css">
+        </head>
+    
+    <body>
+
+        <div id = "heading">
+            Task Manager
+        </div>
+
+        <div class="hh1">
+            Task name
+            <input id="inp" class="input" type="text">
+        </div></br>
+        <div class="hh1">
+            Task Description
+            <input id="inp2" class="input" type="text">
+        </div></br>
+        <div class="hh1">
+            Time Schedule
+            <span><input id="inp3" class="input" type="time"> To </span><span><input id="inp4" class="input" type="time"></span>
+        </div></br>
+        <button id="button" onclick="addTask()">Add Task</button>
+        <div id="output"></div>
+        <script>
+
+            async function addTask(){
+                let headers = new Headers();
+                headers.append('Content-type','application/json');
+                headers.append('Access-Control-Allow-Origin','*');
+                let response = await fetch('http://localhost:4000/api/v1/taskManager',{
+                    method:'POST',
+                    headers:headers,
+                    body:JSON.stringify({
+                        taskName:document.getElementById('inp').value,
+                        taskDescription:document.getElementById('inp2').value,
+                        startTime:document.getElementById('inp3').value,
+                        endTime:document.getElementById('inp4').value
+                    })
+                });
+                let data = await response.json();
+                console.log(data);
+            }
+
+
+        </script>
+
+
+    </body>
+
+</html>
